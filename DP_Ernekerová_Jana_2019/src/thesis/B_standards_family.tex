@@ -1,0 +1,53 @@
+\chapter{802.11 Significant Family Standards and Amendments}
+\label{app:802.11}
+
+\begin{description}
+\item [802.11 (1997)] The initial standard which provided 1 or 2 Mbps transmission in the 2.4 GHz band using either \gls{fhss} or \gls{dsss}. %\cite{ieee802.11_1997}. 
+
+\item [802.11a (1999)] It operates at the 5 GHz ISM\Anote{id1} band with the theoretical data rates up to 54 Mbps. The modulation techique used is OFDM. % \cite{HI10}.
+
+\item [802.11b (1999)] IEEE 802.11b was the first wireless LAN standard to be widely adopted and built in to many laptop computers and other forms of equipment \cite{PHY13}. It operates at the 2.4 GHz ISM band with theoretical data rates up to 11 Mbps. Although the IEEE 802.11a standard was introduced at the same time and was capable of higher speeds, it did not catch on in the same way. The main reason for this was that it operated in the 5 GHz ISM band rather than the 2.4 GHz of 802.11b, and this made it more expensive \cite{PHY13}. %\cite{PHY13}. 
+
+\item [802.11d (2001)] International (country-to-country) roaming extensions
+
+\item [802.11e (2005)] Quality of Service (QoS) and prioritization
+
+\item [802.11g (2003)] Like 802.11b, its predecessor, 802.11g operates in the 2.4 GHz ISM band. It provides a maximum raw data throughput of 54 Mbps. Although the system is compatible with 802.11b, the presence of an 802.11b participant in a network significantly reduces the speed of a net. In fact, it was compatibility issues that took up much of the working time of the IEEE 802.11g committee. The main modulation method chosen for 802.11g was that of OFDM. It soon took over from the b standard and it became the dominant Wi-Fi technology \cite{RE18}. 
+
+\item [802.11h (2003)] Power control
+
+\item [802.11i (2004)] Document deals with authentication and encryption. Its partial implementation is called WPA and full is called WPA2. It defines the 4-way handshake, the PeerKey handshake and the group Key handshake \cite{ieee802.11i_2004}, all vulnerable to the KRACK attacks \cite{VA17}. These handshakes are further discussed in the section \ref{sec:security}.
+
+\item [802.11k (2008)] Measurement reporting
+
+\item [802.11r (2008)] It is also called Fast BSS Transition (or fast roaming). It describes technology to permit continuous connectivity aboard wireless devices in motion. The Fast BSS Transition handshake is also vulnerable to the KRACK attacks and so \cite{VA17}, it will be also explained further in the section \ref{sec:security}. This standard also slightly extends the 4-way handshake and provides a detailed state machine of the supplicant \cite{ieee802.11r_2008}.
+
+\item[802.11n (2009)] It uses multiple antennas to increase data rates. As the first Wi-Fi standard that introduced MIMO (Multiple-Input and Multiple-Output) support. The purpose of the standard is to improve network throughput over the two previous standards—802.11a and 802.11g—with a significant increase in the maximum net data rate from 54 Mbit/s to 600 Mbit/s with the use of four spatial streams at a channel width of 40 MHz. It can be used in the 2.4 GHz or 5 GHz frequency bands. The devices supporting this technology are certified as Wi-Fi 4 by the WFA \cite{wi-fi6}.
+
+\item[802.11p (2010)] Wireless Access for the Vehicular Environment
+
+\item[802.11s (2011)] Mesh networking
+
+\item[802.11u (2011)] It adds features that improve interworking with networks like 3G / cellular and other forms of external networks.
+
+\item[802.11v (2011)] Deals with \gls{wnm} and device configuration. This amendment defines a WNM-Sleep mode. In \cite{VA_ccs2018}, author of the KRACK attack describes a way how to abuse WNM-Sleep response frames to trigger key reinstallation. 
+
+\item[802.11w (2009)] Protected Management Frames security enhancement
+
+\item[802.11y (2008)] Contention Based Protocol for interference avoidance
+
+\item[802.11z (2010)] Defines mechanism called \gls{tdls} enabling user to directly transfer data between two Wi-Fi clients that are part of the same Wi-Fi network. The TDLS PeerKey handshake is defined for this purpose and is also vulnerable to the KRACK attacks \cite{VA_ccs2018} and will be further discussed in the section \ref{sec:security}.
+
+\item[802.11aa (2012)] Enhancements to 802.11 MAC for robust audio streaming while maintaining coexistence with other types of traffic.
+
+\item[802.11ac (2013)] Standard providing high-throughput WLANs on the 5 GHz band. The specification has multi-station throughput of at least 1 gigabit per second and single-link throughput of at least 500 megabits per second (500 Mbit/s). This is accomplished by extending the air-interface concepts embraced by 802.11n: wider RF bandwidth (up to 160 MHz), more MIMO spatial streams (up to eight), downlink multi-user MIMO (up to four clients), and high-density modulation (up to 256-QAM). The devices supporting this technology are certified as Wi-Fi 5 by the WFA. This standard also extends GCMP data-confidentiality protocol by adding support for 256-bit keys.
+
+\item[802.11ad (2012)] It was developed to provide a \gls{mgws} standard at 60 GHz frequency.
+Nowadays, it is rolled out under trademark \gls{wigig}. It has limited range (just a few meters and difficult to pass through physical obstacles) compares to other conventional Wi-Fi systems. However, the high frequency allow it to utilize more bandwidth which in turn enable the transmission of data at high data rate up to multiple gigabit per second. This standard also defines a new data-confidentiality protocol for data encryption called \gls{gcmp}.
+
+\item[802.11af (2013)] Wi-Fi in TV spectrum white spaces (often called White-Fi). 
+
+\item[802.11ai (2016)] The document provides \gls{fils} methods to enhance end user experience in dense environments. This function enables a wireless LAN client to achieve a secure link setup within 100ms. The FILS handshake is also vulnerable to the KRACK attack \cite{VA_ccs2018} and will be further discussed in the section \ref{sec:security}. %\cite{ieee-sa_ai}
+
+\item[802.11ax (under development)] New standard under development which release is planned on to 2019. The devices supporting this technology will be certified as Wi-Fi 6 by the WFA.
+\end{description}

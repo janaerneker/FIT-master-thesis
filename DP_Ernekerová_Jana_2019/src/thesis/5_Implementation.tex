@@ -1,0 +1,46 @@
+\chapter{Implementation}
+\label{chap:implementation}
+
+For our implementation, we chose to use programming language Python and package Scapy. It allows us to handle incoming and outcoming frames and also provides helpful tools for parsing the data. We ran it on Kali Linux and five Alfa AWUS036NHA Wi-Fi USB adapters. They have chipset Atheros AR9271, so we used driver ath9k\_htc for all of them. For running the attack, we used the same setup with two Alfa AWUS036NHA Wi-Fi USB adapters.
+
+\section{Structure}
+The structure of the detection tool consists of six files. We will explain what they are used for:
+
+\begin{description}
+\item \textbf{krackdetect.py} This file contains the main input function and class Detector which handles the detection process, meaning creating other classes, handling received messages and writing to possible \texttt{.pcap} file. There are two important functions \texttt{handle\_EAPOL}, which handles incoming EAPOL frames and \texttt{handle\_encrypted\_data}, which handles incoming encrypted data frame.
+\item \textbf{NetworkMonitor.py} The file contains a class NetworkMonitor. The function methods handle the network-manager service, the interfaces and handle turning on and down the monitoring. It provides for example method like \texttt{configure\_interface\_for\_monitoring}, which sets the interface up and sets it to monitor mode. For this purpose, we use \texttt{ifconfig}, \texttt{iwconfig} and \texttt{airmon-ng} tools. Other methods are for example, set the channel to interface and turn on or off the network-manager to do not interfere with the monitoring.
+\item \textbf{Util.py} The file contains functions for parsing data from frames as a sequence number, replay counter, packet number and a number of a message of the 4-way handshake. Also, there is a function which creates an identifier for a pair of a client and an AP based on their MAC addresses.
+\item \textbf{Logger.py} Only handles log messages sent to the terminal. The messages have 6 levels of severity. In case of an attack it is a message of severity "ERROR".
+\item \textbf{ListenSocket.py} Class initiating the L2Listen socket for monitoring, it also implements \texttt{recv} which returns 802.11 layer of the captured frame; \texttt{close} function closes the socket. We can use either this class or sniff function.
+\item \textbf{PairState.py} The class represents a pair of an AP and a client performing the 4-way handshake. The function \texttt{handle\_msg} reacts to incoming messages and stores necessary data like nonces.  
+\end{description}
+
+\section{Encountered Problems}
+
+We encountered several problems during the implementation of the detection tool. The attack itself is quite hard to be implemented. It is necessary to have an extensive background knowledge of the Wi-Fi standard and proper hardware and software. Additionally, we have to find vulnerable devices.
+Also, some of the handshakes that are vulnerable are very hard to monitor and study because either their messages are always encrypted or only some devices support them. Thus, it is more complicated to trigger them. Besides, different devices behave a bit different, meaning, for example, some of them will not accept the retransmitted \textit{message~3} until they get a retransmitted \textit{message~1} first. And still, every device can monitor only on one channel. It means that for reliable monitoring of other attacking device we need four monitoring Wi-Fi cards, two for the attack itself and two for monitoring the attack from an outside perspective. 
+After all, the detection itself is pretty straightforward. 
+
+\section{Usage}
+It is possible to use more interfaces and more channels. The first interface will be put to the first channel listed in the command, the second to the second one, etc. When it is not possible to set the listed interface to the monitor mode, it will throw an error, if none of the interfaces can be set to monitor mode, the process exits. To reduce interference between individual interfaces, try to keep them at least a meter in distance to each other.
+
+\newpage
+The system is run as a command-line tool and can be used as follows:
+
+\begin{lstlisting}[language=bash, basicstyle=\tiny]
+usage: krackdetect.py [-h] -i INTERFACE [INTERFACE ...] -ch CHANNEL
+                      [CHANNEL ...] [-d DUMP] [-q [Q]]
+
+Detection of Key Reinstallation Attacks (KRACKs)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INTERFACE [INTERFACE ...], --interface INTERFACE [INTERFACE ...]
+                        interfaces for monitoring the network
+  -ch CHANNEL [CHANNEL ...], --channel CHANNEL [CHANNEL ...]
+                        channel at which the traffic will be monitored
+  -d DUMP, --dump DUMP  dumps captured data to .pcap file
+  -q [Q]                quiet
+  
+
+\end{lstlisting}

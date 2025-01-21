@@ -1,0 +1,52 @@
+\chapter{802.11 Frames Subtypes}
+\label{app:frameSubtypes}
+
+\begin{center}
+\begin{longtable}{|c|c|c|}
+\hline
+\textbf{Type Value} & \textbf{Subtype Value} & \textbf{Subtype Description}   \\ \hline \hline
+00 & 0000 & Association Request  \\  \hline
+00 & 0001 & Association Response   \\  \hline
+00 & 0010 & Reassociation Request   \\  \hline
+00 & 0011 & Reassociation Response    \\  \hline
+00 & 0100 & Probe Request    \\  \hline
+00 & 0101 & Probe Response     \\  \hline
+00 & 0110-0111 & Reserved  \\  \hline
+00 & 1000 & Beacon \\  \hline
+00 & 1001 & ATIM    \\  \hline
+00 & 1010 & Disassociation     \\  \hline
+00 & 1011 & Authentication     \\  \hline
+00 & 1100 & Deauthentication     \\  \hline
+00 & 1101 & Action     \\ \hline
+00 & 1110-1111 & Reserved     \\  \hline
+01 & 0000-0111 & Reserved    \\  \hline
+01 & 1000 & Block Ack Request    \\  \hline
+01 &1001 & Block Ack    \\  \hline
+01 &1010 & PS-Poll    \\  \hline
+01 &1011 & RTS     \\  \hline
+01 &1100 & CTS     \\  \hline
+01 &1101 & ACK     \\  \hline
+01 &1110 & CF-end     \\  \hline
+01 &1111 & CF-end + CF-ack    \\  \hline
+10 & 0000 & Data   \\  \hline
+10 & 0001 & Data + CF-ack    \\  \hline
+10 & 0010 & Data + CF-poll    \\  \hline
+10 & 0011 & Data +CF-ack +CF-poll     \\  \hline
+10 & 0100 & Null    \\  \hline
+10 & 0101 & CF-ack     \\  \hline
+10 & 0110 & CF-poll    \\  \hline
+10 & 0111 & CF-ack +CF-poll     \\  \hline
+10 & 1000 & QoS data    \\  \hline
+10 & 1001 & QoS data + CF-ack    \\  \hline
+10 &1010 & QoS data + CF-poll    \\  \hline
+10 &1011 & QoS data + CF-ack + CF-poll    \\  \hline
+10 &1100 & QoS Null    \\ \hline
+10 &1101 & Reserved  \\  \hline
+10 &1110 & QoS + CF-poll (no data)    \\ \hline
+10 &1111 & Qos + CF-ack (no data)   \\ \hline
+10 &0000 & Reserved    \\  \hline
+
+\caption[802.11 frame subtypes]{Subtypes of 802.11 management, control and data frames}
+\label{tab:frames_subtypes}
+\end{longtable}
+\end{center}

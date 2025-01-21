@@ -1,0 +1,64 @@
+\chapter{Testing and Evaluation}
+\label{chap:testing}
+
+This chapter deals with the testing part of the thesis. First, we tested a set of devices for vulnerability. Second, we tested our developed system for detection of the KRACK attacks against the 4-way handshake.
+
+\section{Device Vulnerability}
+
+We used the testing tool published by Vanhoef and introduced in Subsubsection~\ref{subsub:officialTestingScripts} to test a set of devices predominantly with iOS and Android operating systems. The test results are listed in Table~\ref{fig:tableTests}. We can see that according to the testing script, all of the devices are vulnerable to the GTK reinstallation during the 4-way or group key handshake. We found four Android devices vulnerable to the PTK reinstallation. One of them still reinstalls the all-zero key and so, allows the adversary to decrypt all data. Besides, we can see none of the iOS devices tested were vulnerable to the PTK reinstallation, even though, we also tested iOS version 9.3.5 which is not supported by the vendor anymore.
+
+We also tested the vulnerability of the FT handshake on two the same AP devices UniFi~AP-AC-Pro (testing only one, without another device supporting 802.11r is not possible). And both were not vulnerable to the attack.  
+
+\section{Attack Detection}
+
+Due to the nature of the implementation, we have decided to test our detection system by measuring the percentage of correctly detected attacks and the percentage of reported false alarms. For both, we tested the system in environment defined in Section~\ref{enum:environments}, environment~\ref{env:B}.
+
+\subsection{False Alarms}
+To figure out if our detection system triggers alerts as false positives, we assumed the tested environment is secure when we are not performing the attack. We set up two Wi-Fi APs on channels 1 and 9 in the environment. To run our script, we used five external Wi-Fi cards and set them to channels 1, 3, 5, 7, and 9 respectively. We let it run for three hours in the defined environment during the day during the standard operation. And we watched detected attacks. We did not detect any false alarms so, we consider our script in this term reliable.
+
+\subsection{Detected Attacks}
+We used two Wi-Fi NICs for the attack and three for the detection. We assumed we do not know which channel will the attacker use to clone the real AP to. However, we know which channels are our Wi-Fi APs running on. Thus, we used the channels 1 and 9 and the third we decided by random choice to set to 5. We made a few different scenarios in terms of the relative position of the detection tool, the attacker, attacked client and the real AP.  
+In all these scenarios, we were still inside the flat described in Section~\ref{enum:environments}, environment~\ref{env:B}, thus, we had a decent signal for monitoring of at least one of the three participants in the attack (the AP, the client, the attacker). The detection tool was able to detect all successful attacks in all scenarios. Thus, we can say that in an average environment in terms of interference and device distances, we are able to detect the attack reliably. Also, it is enough to be able to monitor either the side of the AP or the side of the client, in channel based MitM, to be able to detect the KRACK attacks. 
+
+\section{Comparison to Other Tools}
+
+During the research, we found only one other tool for dealing with the same problem. It is available in~\cite{securingsam_2017}. This tool runs on the AP in a network and detects only retransmission of the \textit{message~3} of the handshake. This retransmission can happen even if there is no attack and the script does not have any chance to verify that the attack was performed or in case it was that it was successful. Optionally, in case it detects this retransmission, it disassociates and deauthenticates the client from the AP. This approach can lead to a lot of false positives and worsen the service provided by the AP. It runs only on APs with Python available.
+
+\section{Evaluation}
+There were many mobile devices tested for their vulnerability to the KRACK attacks. Even though, it has been more than a year since the publication of the vulnerability, some of them are still not patched. 
+
+According to testing of our detection system, in case we are in a decent range for monitoring the attacked client or the AP, in a place with no significant interference, we reliably detect the attack.
+
+\begin{center}
+\begin{table}[h!]
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Device} & \textbf{OS} & \textbf{PTK reinstall} & \textbf{GTK reinstall}  \\ \hline \hline
+Asus~Z007 & Android~4.4.2 & vulnerable &  vulnerable \\ \hline
+Samsung~SM-G530H & Android~4.4.4 & vulnerable & vulnerable \\ \hline
+Asus~Nexus~7 & Android~5.1.1 & vulnerable & vulnerable \\ \hline
+myPhone~Pocket  & Android~6.0 & not vulnerable & vulnerable \\ \hline
+LGE~Nexus 5 & Android~6.0.1 & all-zero key & vulnerable \\ \hline
+OPPO~R9s~Plus & Android~6.0.1 & not vulnerable & vulnerable \\ \hline
+AllView~P41~eMagic  & Android~7.0 & not vulnerable & vulnerable  \\ \hline
+Huawei~VNS-L21 & Android~7.0 & not vulnerable & vulnerable \\ \hline
+Xiaomi~Redmi~Note~4 & Android~7.0 & not vulnerable & vulnerable \\ \hline
+Huawei~Ane-LX1 & Android~8.0 & not vulnerable & vulnerable \\ \hline
+Huawei~ATU-L31 & Android~8.0 & not vulnerable & vulnerable \\ \hline
+Huawei~MHA.AL00 & Android~8.0 & not vulnerable &
+ vulnerable \\ \hline
+Samsung~SM-A320FL & Android~8.0 & not vulnerable & vulnerable  \\ \hline
+Samsung~SM-G950F & Android~8.0 & not vulnerable & vulnerable \\ \hline
+Samsung~SM-J330F  & Android~8.0 & not vulnerable & vulnerable  \\ \hline
+LGE~Nexus~5X & Android~8.1.0 & not vulnerable & vulnerable \\ \hline
+Xiaomi~Mi~A2~Lite & Android~8.1.0 & not vulnerable & vulnerable  \\ \hline
+iPad mini & iOS~9.3.5 & not vulnerable & vulnerable \\ \hline
+iPhone 6 & iOS~11.4 & not vulnerable & vulnerable  \\ \hline
+iPhone 6 Plus & iOS~11.4.1 & not vulnerable & vulnerable   \\ \hline
+iPhone 7 & iOS~12.1.1 & not vulnerable & vulnerable \\ \hline
+iPhone X & iOS~12.1.2 & not vulnerable & vulnerable \\ \hline
+\end{tabular}
+\caption[Results of device vulnerability testing]{Results of device vulnerability testing.}
+\label{fig:tableTests}
+\end{table}
+\end{center}

@@ -1,0 +1,124 @@
+% arara: xelatex
+% arara: xelatex
+% arara: xelatex
+
+
+% options:
+% thesis=M master's thesis
+% english thesis in English language
+% hidelinks remove colour boxes around hyperlinks
+\documentclass[thesis=M,english,hidelinks]{FITthesis}[2012/10/20]
+
+\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
+% \usepackage[latin2]{inputenc} % LaTeX source encoded as ISO-8859-2
+% \usepackage[cp1250]{inputenc} % LaTeX source encoded as Windows-1250
+
+\usepackage{graphicx} %graphics files inclusion
+% \usepackage{subfig} %subfigures
+% \usepackage{amsmath} %advanced maths
+% \usepackage{amssymb} %additional math symbols
+
+\usepackage{dirtree} %directory tree visualisation
+
+\usepackage{xcolor} %color
+\usepackage{colortbl}
+\usepackage{array}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{tikz}
+
+\usepackage{listings}
+\usetikzlibrary{automata,positioning}
+\definecolor{Gray}{gray}{0.85}
+
+\newcolumntype{a}{>{\columncolor{Gray}}m}
+\newcolumntype{b}{>{\columncolor{white}}m}
+
+\newcommand{\sur}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\sous}[1]{\ensuremath{_{\textrm{#1}}}}
+
+% list of acronyms
+\usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
+\input{glossary}
+\makeglossaries
+
+\usepackage{fixltx2e}
+
+%footnotes
+\usepackage{sepfootnotes}
+% this defines new footnotes and the commands
+%   \Anotecontent{<id>}{<text>}
+%   \Anote{<id>}
+% and a few more:
+\newfootnotes{A}
+
+% input the footnote definitions:
+\input{notes}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% EDIT THIS
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\department{Department of Computer Systems}
+\title{Analysis and Detection of KRACK Attack Against WiFi Infrastracture}
+\authorGN{Jana} %author's given name/names
+\authorFN{Ernekerová} %author's surname
+\author{Jana Ernekerová} %author's name without academic degrees
+\authorWithDegrees{Bc. Jana Ernekerová} %author's name with academic degrees
+\supervisor{Ing. Tomáš Čejka, Ph.D.}
+\acknowledgements{I want to thank my supervisor Ing. Tomáš Čejka, Ph.D., for all his valuable advice and for the time he spent helping me with this thesis. 
+Also, I am grateful to my colleagues and friends for their comments and words of support. 
+
+I am very grateful to my parents and family for supporting me throughout my studies, especially during the studies abroad. Finally, I must express my
+very profound gratitude to my partner for all his love, patience, and support
+he provides me every day. Thank you.}
+\abstractEN{This thesis analyzes the KRACK attack principle and proposes methods of~its detection. Also, it deals with the design, implementation, and testing of a system for detection of~the KRACK attack against the 4-way handshake in real-time. In the analytical part of the thesis, first, there are introduced relevant parts of the 802.11 standard which are the target of the attack. Then, the principle of the attack is described, its practical impact and countermeasures. Besides, we map available tools for the detection of device vulnerability to this attack. The thesis is mainly focused on the attack on the 4-way handshake and analyzes the traffic generated during this attack. This malicious traffic is then compared to the standard traffic generated during the 4-way handshake. Based on the monitored traffic and analysis part of the thesis, characteristics for detection of the KRACK attacks are proposed. A system for detection of~the 4-way handshake is designed, implemented and successfully tested.}
+
+\abstractCS{Tato práce analyzuje princip útoku KRACK a navrhuje metody jeho detekce. Kromě toho se práce zabývá návrhem, implementací a testováním systému pro detekci útoku KRACK proti čtyřcestnému handshaku v reálném čase. V analytické části práce jsou nejprve představeny relevantní části standardu 802.11, na které je útok zaměřen. Poté je popsán princip útoku, jeho praktické dopady a protiopatření. Jsou zmapovány dostupné nástroje pro detekci zranitelnosti zařízení k tomuto útoku. Práce se zvlášť zaměřuje na útok proti čtyřcestnému handshaku a analyzuje provoz generovaný během tohoto útoku. Ten je poté srovnán se standardním provozem na síti během čtyřcestného handshaku. Na základě monitorovaného provozu a také analytické části práce jsou pak navrženy charakteristiky k detekci útoků KRACK. Systém pro detekci útoku proti čtyřcestnému handshaku je navržen, implementován a úspěšně otestován.}
+\placeForDeclarationOfAuthenticity{Prague}
+\keywordsCS{KRACK, WPA2, 802.11, bezpečnostní protokoly, CCMP, GCMP, TKIP, čtyřcestný handshake, detekce, útok, Wi-Fi, bezpečnost}
+\keywordsEN{KRACK, WPA2, 802.11, security protocols, CCMP, GCMP, TKIP, 4-way handshake, attack detection, Wi-Fi, security}
+\declarationOfAuthenticityOption{1} %select as appropriate, according to the desired license (integer 1-6)
+% \website{http://site.example/thesis} %optional thesis URL
+
+\begin{document}
+
+\setsecnumdepth{part}
+\include{0_introduction}
+\setsecnumdepth{all}
+
+\include{1_WiFiTechnology}
+\include{2_krackAttacks}
+
+\include{3_TrafficMonitoring}
+
+%Praktická část BP – identifikuje vlastní přínos(y) bakalářské práce
+%Navazuje na literární rešerši BP
+%Řeší identifikované mezery (nedostatky, chyby) nalezené v literární rešerši
+%Musí být zřetelně vyjádřeno, co je v práci nové, originální Přínosem práce je, že jste něco ověřili, navrhli,
+%naprogramovali, ...
+%Přínosem práce není, že jste se něco naučili
+
+\include{4_Design}
+\include{5_Implementation}
+\include{6_Testing}
+
+\setsecnumdepth{part}
+
+\include{7_Conclusion}
+
+
+
+\bibliographystyle{iso690}
+\bibliography{ref}
+
+\setsecnumdepth{all}
+\appendix
+\printglossaries
+\include{B_standards_family}
+\include{C_cveIdentifiers}
+\include{D_framesSubtypes}
+\include{cd_content}
+\end{document}
